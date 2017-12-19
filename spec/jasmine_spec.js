@@ -409,12 +409,13 @@ describe('Jasmine', function() {
       });
 
       it('leaves it if the suite has completed', function() {
-        var completionReporterSpy = jasmine.createSpyObj('reporter', ['isComplete']);
+        var completionReporterSpy = jasmine.createSpyObj('reporter', ['isComplete', 'isSucceeded']);
         completionReporterSpy.isComplete.and.returnValue(true);
+        completionReporterSpy.isSucceeded.and.returnValue(true);
         this.testJasmine.completionReporter = completionReporterSpy;
 
         this.testJasmine.checkExit();
-        expect(process.exitCode).toBeUndefined();
+        expect(process.exitCode).toBe(0);
       });
     });
 
